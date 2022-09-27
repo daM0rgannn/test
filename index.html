@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Assignment</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+</head>
+<body>
+    <nav>
+        <div class="nav">
+            <div class="nav-left"></div>
+            <img src="./img/logo.png" class="logo-nav" />
+            <i class="bi bi-bell"></i>
+
+            <div class="profile">Akkarapol</div>
+        </div>
+    </nav>
+    <section>
+        <div class="place">
+            <h2>Place List</h2>
+        </div>
+        <div id="restaurent"></div>
+        <span>
+            <input id="search" type="text" name="secrch" class="search-res" placeholder="Restaurent">
+            <ul class="list-group" id="result"></ul>
+        </span>
+        <span>
+            <input id="search" type="text" name="secrch" onkeyup="" class="search-name" placeholder="Search name...">
+        </span>
+    </section>
+    <!-- Restaurent -->
+    <!-- <section>
+        <div id="restaurent"></div>
+    </section> -->
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+<!-- <script src="script.js"></script> -->
+<!-- <script>
+    $.getJSON('example_data.json' , function(data){
+        for( var i=0; i<data.length; i++) {
+            var name = data[i]['name'];
+            $("result").append("<div>"+name+"<div>")
+        }
+    })
+</script> -->
+<script>
+    $(document).ready(function(){
+        $.ajaxSetup({ cache: false });
+        $('#search').keyup(function(){
+        $('#result').html('');
+        $('#state').val('');
+        var searchField = $('#search').val();
+        var expression = new RegExp(searchField, "i");
+        $.getJSON('example_data.json', function(data) {
+        $.each(data, function(key, value){
+        if (value.name.search(expression) != -1 || value.name.search(expression) != -1)
+        {
+        $('#result').append('<div class="card" style="width:400px; height:250px; left:132px; top:100px; float: left;"><img src="'+value.profile_image_url+'" height="60" width="60" class="img-thumbnail" /><img src="'+value.images+'" height="60" width="60" class="img-thumbnail" /><span>'+value.name+'<span class="text-muted">'+value.rating+'</span></div>');
+        }
+       });   
+      });
+     });
+     
+        $('#result').on('click', 'li', function() {
+        var click_text = $(this).text().split('|');
+        $('#search').val($.trim(click_text[0]));
+        $("#result").html('');
+        });
+    });
+    </script>
+</html>
